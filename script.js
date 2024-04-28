@@ -15,7 +15,7 @@ function divide(a, b) {
 }
 
 function operate(firstNumber, secondNumber, operator) {
-    return operator(firstNumber, secondNumber)
+    return operator(firstNumber, secondNumber);
 }
 
 let firstNumber = 10;

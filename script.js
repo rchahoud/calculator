@@ -1,15 +1,37 @@
-const tableCells = document.querySelectorAll("button");
+let firstOperand;
+let lastOperand;
+let operator;
+let operandFlag;
+let lastAction;
 
-let firstOperand = "";
-let lastOperand = "";
-let operator = null;
-let operandFlag = 0;
-let lastAction = "";
+function start() {
+  firstOperand = "";
+  lastOperand = "";
+  operator = null;
+  operandFlag = 0;
+  lastAction = "";
+  
+  display(0);
+
+  const tableCells = document.querySelectorAll("button");
+
+  tableCells.forEach((td) => {
+    td.addEventListener("click", (event) => {
+      const buttonValue = event.target.value;
+      clickHandle(buttonValue);
+    });
+  });
+}
 
 function debug() {
   console.log(
     `Apos Operate(): firstOperand: ${firstOperand}, lastOperand:${lastOperand}, operandFlag: ${operandFlag}, operator: ${operator}`
   );
+}
+
+function display(value) {
+  const display = document.querySelector("#display");
+  display.textContent = value;
 }
 
 function ac() {
@@ -43,7 +65,6 @@ function operate() {
   firstOperand = operator(a, b);
   display(firstOperand);
   firstOperand = String(firstOperand);
-  //lastOperand = "";
   console.log(`Resultado: ${firstOperand}`);
   debug();
 }
@@ -51,16 +72,13 @@ function operate() {
 function assignValue(value) {
   if (operandFlag === 0) {
     firstOperand = firstOperand + value;
+    display(firstOperand);
     console.log(`firstOperand: ${firstOperand} flag: ${operandFlag}`);
   } else {
     lastOperand = lastOperand + value;
+    display(lastOperand);
     console.log(`lastOperand: ${lastOperand} flag: ${operandFlag}`);
   }
-}
-
-function display(value) {
-  const display = document.querySelector("#display");
-  display.textContent = value;
 }
 
 function clickHandle(input) {
@@ -110,9 +128,4 @@ function clickHandle(input) {
   }
 }
 
-tableCells.forEach((td) => {
-  td.addEventListener("click", (event) => {
-    const buttonValue = event.target.value;
-    clickHandle(buttonValue);
-  });
-});
+start();

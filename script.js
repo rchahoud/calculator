@@ -10,7 +10,7 @@ function start() {
   operator = null;
   operandFlag = 0;
   lastAction = "";
-  
+
   display(0);
 
   const tableCells = document.querySelectorAll("button");
@@ -81,6 +81,32 @@ function assignValue(value) {
   }
 }
 
+function changeValueSignal() {
+  if (operandFlag === 0) {
+    firstOperand = firstOperand.split("");
+    if (firstOperand[0] === "-") {
+      firstOperand.shift();
+      firstOperand = firstOperand.join("");
+    } else {
+      firstOperand.unshift("-")
+      firstOperand = firstOperand.join("");
+    }
+    display(firstOperand);
+    console.log(`firstOperand: ${firstOperand} flag: ${operandFlag}`);
+  } else {
+    lastOperand = firstOperand.split("");
+    if (lastOperand[0] === "-") {
+      lastOperand.shift();
+      lastOperand = lastOperand.join("");
+    } else {
+      lastOperand.unshift("-");
+      lastOperand = lastOperand.join("");
+    }
+    display(lastOperand);
+    console.log(`lastOperand: ${lastOperand} flag: ${operandFlag}`);
+  }
+}
+
 function clickHandle(input) {
   switch (input) {
     case "+":
@@ -107,6 +133,7 @@ function clickHandle(input) {
       lastAction = "%";
       break;
     case "+/-":
+      changeValueSignal();
       lastAction = "+/-";
       break;
     case "AC":
